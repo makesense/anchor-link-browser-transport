@@ -62,9 +62,9 @@ export default [
     {
         input: 'src/index.ts',
         output: {
-            globals: {'anchor-link': 'AnchorLink'},
+            globals: {'libre-link': 'LibreLink'},
             banner,
-            name: 'AnchorLinkBrowserTransport',
+            name: 'LibreLinkBrowserTransport',
             file: pkg.unpkg,
             format: 'iife',
             sourcemap: true,

@@ -8,7 +8,7 @@ export default `
 }
 
 .%prefix% {
-    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    font-family: Poppins, -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
         Arial, sans-serif;
     font-size: 13px;
     background: rgba(0, 0, 0, 0.65);
@@ -21,6 +21,9 @@ export default `
     display: none;
     align-items: center;
     justify-content: center;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-stroke: 0.15px;
 }
 
 .%prefix%-active {
@@ -28,23 +31,22 @@ export default `
 }
 
 .%prefix%-inner {
-    background: #EFF1F7;
-    margin: 20px;
-    padding-top: 50px;
-    border-radius: 20px;
-    box-shadow: 0px 4px 100px rgba(0, 0, 0, .5);
-    width: 340px;
+    background: white;
+    padding: 16px 24px 24px 24px;
+    border-radius: 8px;
+    box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.08);
+    width: 360px;
     position: relative;
 }
 
 .%prefix%-close {
     display: block;
     position: absolute;
-    top: 11px;
+    top: 16px;
     right: 16px;
     width: 28px;
     height: 28px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.57 12.1a.96.96 0 000 1.34c.37.36 1 .36 1.34 0L7 8.37l5.09 5.09c.36.35.97.35 1.34-.01a.96.96 0 000-1.34L8.34 7.01l5.08-5.08a.95.95 0 000-1.33.97.97 0 00-1.34-.01L6.99 5.68 1.91.59a.96.96 0 00-1.33 0 .97.97 0 00-.01 1.34l5.09 5.08-5.1 5.1z' fill='%23007AFF'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.57 12.1a.96.96 0 000 1.34c.37.36 1 .36 1.34 0L7 8.37l5.09 5.09c.36.35.97.35 1.34-.01a.96.96 0 000-1.34L8.34 7.01l5.08-5.08a.95.95 0 000-1.33.97.97 0 00-1.34-.01L6.99 5.68 1.91.59a.96.96 0 00-1.33 0 .97.97 0 00-.01 1.34l5.09 5.08-5.1 5.1z' fill='%23000000'/%3E%3C/svg%3E");
     background-size: 14px;
     background-repeat: no-repeat;
     background-position: 50% 7px;
@@ -53,7 +55,7 @@ export default `
 }
 
 .%prefix%-close:hover {
-    background-color: white;
+    background-color: #e6e6e6;
 }
 
 .%prefix%-version {
@@ -100,8 +102,6 @@ export default `
 }
 
 .%prefix%-request {
-    padding: 20px;
-    border-radius: 20px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     background: white;
@@ -115,18 +115,22 @@ export default `
 
 .%prefix%-title {
     color: #000000;
-    font-size: 25px;
-    margin-top: 14px;
-    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 600;
     line-height: 30px;
     letter-spacing: 0.5px;
 }
 
 .%prefix%-subtitle {
-    margin-top: 14px;
-    color: #5C5C5C;
+    margin-top: 16px 11px 24px;
+    color: #666;
+    width: 258px;
     text-align: center;
-    line-height: 1.4;
+    font-size: 13.3px;
+    font-weight: 500;
+    line-height: 1.8;
     word-break: break-word;
 }
 
@@ -154,34 +158,38 @@ export default `
 }
 
 .%prefix%-button {
-    color: #007AFF;
-    background: #EFF1F7;
-    border: 1px solid #EFF1F7;
+    height: 48px;
+    padding: 12px 16px;
+    color: white;
+    background: #1B0AAE;
     text-decoration: none;
-    font-size: 17px;
-    flex-grow: 1;
-    flex: 1;
+    font-size: 13.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     line-height: 1;
-    padding: 20px 18px;
-    border-radius: 12px;
-    font-weight: 400;
+    border-radius: 8px;
+    font-weight: 600;
     text-align: center;
-    display: block;
-    margin-top: 21px;
+    margin-top: 24px;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
 .%prefix%-button:hover {
-    border: 1px solid #007AFF;
+    background-color: #11066D;
 }
 
 .%prefix%-qr {
+    margin-bottom: 16px;
     position: relative;
-    margin-top: 21px;
-    border: 4px solid #EFF1F7;
-    padding: 11px;
-    border-radius: 12px;
+    width: 200px;
+    height: 200px;
+    margin-top: 0px;
+    border: solid 1.5px #e6e6e6;
+    padding: 17px;
+    border-radius: 16px;
     background: #FFFFFF;
     transition: all 400ms ease-in-out;
     transform: scale(1) translateY(0);
@@ -210,18 +218,6 @@ export default `
 
 .%prefix%-qr svg rect {
     fill: black;
-}
-
-.%prefix%-copy {
-    position: absolute;
-    bottom: -10px;
-    left: 0px;
-    width: 100%;
-    color: green;
-    text-align: center;
-    opacity: 1;
-    transition: all 200ms ease-in-out;
-    transition-delay: 400ms;
 }
 
 .%prefix%-qr.zoom .%prefix%-copy {
@@ -287,68 +283,6 @@ export default `
 
 .%prefix%-wskeepalive {
     display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-    .%prefix%-info hr,
-    .%prefix%-inner {
-        background: #262D43;
-        color: white;
-    }
-    .%prefix%-request,
-    .%prefix%-qr a,
-    .%prefix%-qr span,
-    .%prefix%-qr {
-        background: #131B33;
-    }
-    .%prefix%-title {
-        color: #FCFCFC;
-    }
-    .%prefix%-qr span,
-    .%prefix%-subtitle {
-        color: #B8C0DA;
-    }
-    .%prefix%-subtitle a {
-        color: #FCFCFC;
-    }
-    .%prefix%-qr svg rect {
-        fill: white;
-    }
-    .%prefix%-version {
-        color: #546AAF;
-    }
-    .%prefix%-qr a,
-    .%prefix%-manual,
-    .%prefix%-button {
-        color: #FCFCFC;
-    }
-    .%prefix%-button {
-        background: #262D43;
-        border: 1px solid #262D43;
-    }
-    .%prefix%-qr {
-        border-color: #262D43;
-    }
-    .%prefix%-qr.zoom {
-        border-color: #131B33;
-    }
-    .%prefix%-copy a:before {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17' fill='none'%3E%3Cg clip-path='url(%23A)' stroke='%23fff' stroke-linejoin='round' stroke-width='2'%3E%3Cpath d='M13.83 6.5h-6c-.73 0-1.33.6-1.33 1.33v6c0 .74.6 1.34 1.33 1.34h6c.74 0 1.34-.6 1.34-1.34v-6c0-.73-.6-1.33-1.34-1.33z'/%3E%3Cpath d='M3.83 10.5h-.66a1.33 1.33 0 01-1.34-1.33v-6a1.33 1.33 0 011.34-1.34h6a1.33 1.33 0 011.33 1.34v.66' stroke-linecap='round'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='A'%3E%3Cpath fill='%23fff' transform='translate(.5 .5)' d='M0 0h16v16H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
-    }
-    .%prefix%-copy span:before {
-        background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.33 4L6 11.33 2.67 8' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    }
-    .%prefix%-button:hover {
-        color: #FCFCFC;
-        border: 1px solid #FCFCFC;
-        background: #333A50;
-    }
-    .%prefix%-close {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M.57 12.1a.96.96 0 000 1.34c.37.36 1 .36 1.34 0L7 8.37l5.09 5.09c.36.35.97.35 1.34-.01a.96.96 0 000-1.34L8.34 7.01l5.08-5.08a.95.95 0 000-1.33.97.97 0 00-1.34-.01L6.99 5.68 1.91.59a.96.96 0 00-1.33 0 .97.97 0 00-.01 1.34l5.09 5.08-5.1 5.1z' fill='%23FCFCFC'/%3E%3C/svg%3E");
-    }
-    .%prefix%-close:hover {
-        background-color: black;
-    }
 }
 
 @media (max-height: 600px) { .%prefix%-inner { transform: scale(0.9); } }

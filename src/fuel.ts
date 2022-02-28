@@ -1,5 +1,5 @@
-import type {LinkSession} from 'anchor-link'
-import {PlaceholderName, Signature, SigningRequest} from 'anchor-link'
+import type {LinkSession} from 'libre-link'
+import {PlaceholderName, Signature, SigningRequest} from 'libre-link'
 
 async function apiCall(url: string, body?: any) {
     return (

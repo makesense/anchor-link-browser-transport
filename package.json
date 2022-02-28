@@ -1,15 +1,16 @@
 {
-  "name": "anchor-link-browser-transport",
+  "name": "libre-link-browser-transport",
   "version": "3.2.5",
-  "description": "Vanilla JS browser transport for Anchor Link",
-  "homepage": "https://github.com/greymass/anchor-link-browser-transport",
+  "description": "Vanilla JS browser transport for Libre Link",
+  "homepage": "https://github.com/makesense/libre-link-browser-transport",
   "license": "BSD-3-Clause",
-  "main": "lib/anchor-link-browser-transport.js",
-  "module": "lib/anchor-link-browser-transport.m.js",
-  "unpkg": "lib/anchor-link-browser-transport.bundle.js",
-  "types": "lib/anchor-link-browser-transport.d.ts",
+  "main": "lib/libre-link-browser-transport.js",
+  "module": "lib/libre-link-browser-transport.m.js",
+  "unpkg": "lib/libre-link-browser-transport.bundle.js",
+  "types": "lib/libre-link-browser-transport.d.ts",
   "scripts": {
-    "prepare": "make"
+    "prepare": "make",
+    "watch": "rollup -c -w"
   },
   "files": [
     "lib/*",

@@ -10,7 +10,7 @@ import {
     LinkTransport,
     SessionError,
     SigningRequest,
-} from 'anchor-link'
+} from 'libre-link'
 
 import styleText from './styles'
 import generateQr from './qrcode'
@@ -93,13 +93,13 @@ export default class BrowserTransport implements LinkTransport {
     storage: LinkStorage
 
     constructor(public readonly options: BrowserTransportOptions = {}) {
-        this.classPrefix = options.classPrefix || 'anchor-link'
+        this.classPrefix = options.classPrefix || 'libre-link'
         this.injectStyles = !(options.injectStyles === false)
         this.importantStyles = !(options.importantStyles === false)
         this.requestStatus = !(options.requestStatus === false)
         this.fuelEnabled = options.disableGreymassFuel !== true
         this.fuelReferrer = options.fuelReferrer || 'teamgreymass'
-        this.storage = new Storage(options.storagePrefix || 'anchor-link')
+        this.storage = new Storage(options.storagePrefix || 'libre-link')
         this.supportedChains = options.supportedChains || defaultSupportedChains
         this.showingManual = false
     }
@@ -116,6 +116,9 @@ export default class BrowserTransport implements LinkTransport {
     private containerEl!: HTMLElement
     private requestEl!: HTMLElement
     private styleEl?: HTMLStyleElement
+    private fontElPreconnect?: HTMLLinkElement
+    private fontElPreconnectXorigin?: HTMLLinkElement
+    private fontElStylesheet?: HTMLLinkElement
     private countdownTimer?: NodeJS.Timeout
     private closeTimer?: NodeJS.Timeout
     private prepareStatusEl?: HTMLElement
@@ -145,6 +148,27 @@ export default class BrowserTransport implements LinkTransport {
             this.styleEl.appendChild(document.createTextNode(css))
             document.head.appendChild(this.styleEl)
         }
+        if (!this.fontElPreconnect) {
+            this.fontElPreconnect = document.createElement('link');
+            this.fontElPreconnect.rel= 'preconnect'
+            this.fontElPreconnect.href= 'https://fonts.googleapis.com'
+            document.head.appendChild(this.fontElPreconnect);
+        }
+        if (!this.fontElPreconnectXorigin) {
+            this.fontElPreconnectXorigin = document.createElement('link');
+            this.fontElPreconnectXorigin.rel= 'preconnect'
+            this.fontElPreconnectXorigin.href= 'https://fonts.googleapis.com'
+            this.fontElPreconnectXorigin.crossOrigin
+            document.head.appendChild(this.fontElPreconnectXorigin);
+        }
+        if (!this.fontElStylesheet) {
+            this.fontElStylesheet = document.createElement('link');
+            this.fontElStylesheet.rel= 'preconnect'
+            this.fontElStylesheet.href= 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'
+            this.fontElStylesheet.rel = 'stylesheet';
+            document.head.appendChild(this.fontElStylesheet);
+        }
+
         if (!this.containerEl) {
             this.containerEl = this.createEl()
             this.containerEl.className = this.classPrefix
@@ -228,20 +252,17 @@ export default class BrowserTransport implements LinkTransport {
 
         const infoEl = this.createEl({class: 'info'})
         const infoTitle = this.createEl({class: 'title', tag: 'span', content: args.title})
-        const infoSubtitle = this.createEl({
-            class: 'subtitle',
-            tag: 'span',
-            content: args.subtitle,
-        })
         infoEl.appendChild(infoTitle)
-        infoEl.appendChild(infoSubtitle)
-        const logoEl = this.createEl({class: 'logo'})
-        if (args.type) {
-            logoEl.classList.add(args.type)
+        if (args.subtitle) {
+            const infoSubtitle = this.createEl({
+                class: 'subtitle',
+                tag: 'span',
+                content: args.subtitle,
+            })
+            infoEl.appendChild(infoSubtitle)
         }
-
+        
         emptyElement(this.requestEl)
-        this.requestEl.appendChild(logoEl)
         this.requestEl.appendChild(infoEl)
         if (args.content) {
             this.requestEl.appendChild(args.content)
@@ -283,22 +304,6 @@ export default class BrowserTransport implements LinkTransport {
             console.warn('Unable to generate QR code', error)
         }
 
-        const copyEl = this.createEl({class: 'copy'})
-        const copyA = this.createEl({tag: 'a', text: 'Copy request link'})
-        const copySpan = this.createEl({tag: 'span', text: 'Link copied - Paste in Anchor'})
-        copyEl.appendChild(copyA)
-        copyEl.appendChild(copySpan)
-        qrEl.appendChild(copyEl)
-
-        copyA.addEventListener('click', (event) => {
-            event.preventDefault()
-            copyToClipboard(crossDeviceUri)
-            copyEl.classList.add('copied')
-            setTimeout(() => {
-                copyEl.classList.remove('copied')
-            }, 2000)
-        })
-
         const svg = qrEl.querySelector('svg')
         if (svg) {
             svg.addEventListener('click', (event) => {
@@ -312,7 +317,7 @@ export default class BrowserTransport implements LinkTransport {
             tag: 'a',
             class: 'button',
             href: crossDeviceUri,
-            text: 'Launch Anchor',
+            text: 'Open Wallet',
         })
         linkEl.appendChild(linkA)
 
@@ -337,23 +342,20 @@ export default class BrowserTransport implements LinkTransport {
 
         const content = this.createEl({class: 'info'})
         content.appendChild(qrEl)
+        if (svg) {
+            const infoSubtitle = this.createEl({
+                class: 'subtitle',
+                tag: 'span',
+                content: subtitle,
+            })
+            content.appendChild(infoSubtitle)
+        }
         content.appendChild(linkEl)
 
-        let footnote: HTMLElement | undefined
-        if (showFooter) {
-            footnote = this.createEl({text: "Don't have Anchor yet? "})
-            const footnoteLink = this.createEl({
-                tag: 'a',
-                target: '_blank',
-                href: 'https://greymass.com/anchor',
-                text: 'Download now',
-            })
-            footnote.appendChild(footnoteLink)
-        }
         this.showDialog({
             title,
-            subtitle,
-            footnote,
+            subtitle: '',
+            footnote: '',
             content,
         })
     }
@@ -375,9 +377,9 @@ export default class BrowserTransport implements LinkTransport {
         this.clearTimers()
         this.activeRequest = request
         this.activeCancel = cancel
-        const title = request.isIdentity() ? 'Login' : 'Sign'
+        const title = request.isIdentity() ? 'Scan to connect' : 'Pending...'
         const subtitle =
-            'Scan the QR-code with Anchor on another device or use the button to open it here.'
+            'Open Libre Wallet on your mobile phone and scan'
         this.displayRequest(request, title, subtitle).catch(cancel)
     }
 
