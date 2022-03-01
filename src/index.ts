@@ -346,8 +346,15 @@ export default class BrowserTransport implements LinkTransport {
             const infoSubtitle = this.createEl({
                 class: 'subtitle',
                 tag: 'span',
-                content: subtitle,
             })
+            infoSubtitle.innerHTML = 'Open <a href="https://librewallet.io" target="_blank">Libre Wallet</a> on your mobile phone and scan'
+            const linkA = this.createEl({
+                tag: 'a',
+                class: 'subtitle',
+                href: 'https://librewallet.io',
+                text: 'Libre Wallet',
+            })
+     
             content.appendChild(infoSubtitle)
         }
         content.appendChild(linkEl)
@@ -378,9 +385,7 @@ export default class BrowserTransport implements LinkTransport {
         this.activeRequest = request
         this.activeCancel = cancel
         const title = request.isIdentity() ? 'Scan to connect' : 'Pending...'
-        const subtitle =
-            'Open Libre Wallet on your mobile phone and scan'
-        this.displayRequest(request, title, subtitle).catch(cancel)
+        this.displayRequest(request, title, '').catch(cancel)
     }
 
     public onSessionRequest(

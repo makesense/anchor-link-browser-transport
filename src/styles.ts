@@ -135,9 +135,9 @@ export default `
 }
 
 .%prefix%-subtitle a {
-    color: #000000;
+    color: #1b0aae;
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .%prefix%-manual {
