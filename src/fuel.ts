@@ -80,7 +80,7 @@ export async function fuel(
     cloned.data.req = (
         await SigningRequest.create(
             {transaction: {...result.data.request[1]}},
-            {abiProvider: (request as any).abiProvider}
+            {abiProvider: (request as any).abiProvider, scheme: request.getScheme()}
         )
     ).data.req
     return cloned

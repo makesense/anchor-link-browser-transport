@@ -17,6 +17,7 @@
     "src/*"
   ],
   "dependencies": {
+    "awesome-qr": "^2.1.5-rc.0",
     "tslib": "^2.0.3"
   },
   "peerDependencies": {

@@ -204,7 +204,7 @@ export default `
 
 .%prefix%-qr.zoom {
     transform: scale(2) translateY(-25px);
-    border: 2px solid #1E89FE;
+    border: 2px solid #1B0AAE;
     box-sizing: border-box;
     box-shadow: 0px 4px 154px rgba(0, 0, 0, 0.35);
     border-radius: 10px;
