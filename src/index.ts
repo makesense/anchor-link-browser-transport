@@ -349,12 +349,6 @@ export default class BrowserTransport implements LinkTransport {
             })
             infoSubtitle.innerHTML = 'Open <a href="https://librewallet.io" target="_blank">Libre Wallet</a> on your mobile phone and scan'
             content.appendChild(infoSubtitle)
-            const infoSubtitle2 = this.createEl({
-                class: 'subtitle',
-                tag: 'span',
-            })
-            infoSubtitle2.innerHTML = crossDeviceUri
-            content.appendChild(infoSubtitle2)
         }
         content.appendChild(linkEl)
 
