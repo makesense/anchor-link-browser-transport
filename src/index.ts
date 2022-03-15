@@ -264,6 +264,13 @@ export default class BrowserTransport implements LinkTransport {
         
         emptyElement(this.requestEl)
         this.requestEl.appendChild(infoEl)
+        if (args.type === 'success') {
+            const checkEl = this.createEl({ class: 'success-check'});
+            this.requestEl.appendChild(checkEl);
+        } else if (args.type === 'error') {
+            const errorEl = this.createEl({ class: 'error-x'});
+            this.requestEl.appendChild(errorEl);
+        }
         if (args.content) {
             this.requestEl.appendChild(args.content)
         }
@@ -292,10 +299,8 @@ export default class BrowserTransport implements LinkTransport {
         const returnUrl = generateReturnUrl()
         sameDeviceRequest.setInfoKey('same_device', true)
         sameDeviceRequest.setInfoKey('return_path', returnUrl)
-
         const sameDeviceUri = sameDeviceRequest.encode(true, false)
         const crossDeviceUri = request.encode(true, false)
-
         const qrEl = this.createEl({class: 'qr'})
         try {
             qrEl.innerHTML = generateQr(crossDeviceUri)
@@ -680,15 +685,22 @@ export default class BrowserTransport implements LinkTransport {
     public onSuccess(request: SigningRequest) {
         if (request === this.activeRequest) {
             this.clearTimers()
-            if (this.requestStatus) {
+            if (this.requestStatus && !request.isIdentity()) {
                 this.showDialog({
-                    title: 'Success!',
-                    subtitle: request.isIdentity() ? 'Login completed.' : 'Transaction signed.',
+                    title: 'Success',
+                    subtitle: 'Transaction Signed.',
+                    content: 'Your transaction was successfully signed',
+                    action: {
+                        text: 'Continue',
+                        callback: () => {
+                            this.hide();
+                        }
+                    },
                     type: 'success',
                 })
-                this.closeTimer = setTimeout(() => {
-                    this.hide()
-                }, 1.5 * 1000)
+                // this.closeTimer = setTimeout(() => {
+                //     this.hide()
+                // }, 1.5 * 1000)
             } else {
                 this.hide()
             }
