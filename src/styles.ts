@@ -105,6 +105,9 @@ export default `
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .%prefix%-info {
@@ -117,20 +120,30 @@ export default `
     color: #000000;
     margin-top: 0;
     margin-bottom: 20px;
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 600;
     line-height: 30px;
     letter-spacing: 0.5px;
 }
 
 .%prefix%-subtitle {
-    margin-top: 16px 11px 24px;
-    color: #666;
-    width: 258px;
+    margin: 16px 24px 12px;
+    color: #9695a0;
+    width: 280px;
     text-align: center;
-    font-size: 13.3px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1.8;
+    word-break: break-word;
+}
+
+.%prefix%-subtitle-title {
+    color: black;
+    width: 280px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.25;
     word-break: break-word;
 }
 
@@ -139,6 +152,57 @@ export default `
     cursor: pointer;
     text-decoration: none;
 }
+
+.%prefix%-countdown {
+    width: 104px;
+    height: 104px;
+    background-color: #1B0AAE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 44px 0 32px;
+}
+
+.%prefix%-error-x {
+    width: 104px;
+    height: 104px;
+    background-color: #faebed;
+    background-image: url("data:image/svg+xml, %3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cpath%20d%3D%22M0%200h32v32H0z%22%2F%3E%3Cpath%20d%3D%22M26.54%205.46c.566.567.61%201.458.13%202.075l-.13.148L18.222%2016l8.318%208.317a1.571%201.571%200%200%201-2.075%202.353l-.148-.13L16%2018.222%207.683%2026.54a1.571%201.571%200%200%201-2.353-2.075l.13-.148L13.778%2016%205.46%207.683A1.571%201.571%200%200%201%207.535%205.33l.148.13L16%2013.778l8.317-8.318a1.571%201.571%200%200%201%202.223%200z%22%20fill%3D%22%23CD324C%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 44px 0 32px;
+}
+
+.%prefix%-success-check {
+    width: 104px;
+    height: 104px;
+    background-color: #ebfaf7;
+    background-image: url("data:image/svg+xml, %3Csvg%20width%3D%2240%22%20height%3D%2240%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cpath%20d%3D%22M0%200h40v40H0z%22%2F%3E%3Cpath%20d%3D%22M32.155%208.821a1.667%201.667%200%200%201%202.495%202.2l-.138.158-18.333%2018.333c-.601.6-1.547.647-2.2.138l-.158-.138-8.333-8.333a1.667%201.667%200%200%201%202.2-2.496l.157.138L15%2025.975%2032.155%208.821z%22%20fill%3D%22%2332CDAC%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 44px 0 32px;
+}
+
 
 .%prefix%-manual {
     color: #007AFF;

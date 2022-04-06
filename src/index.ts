@@ -253,27 +253,21 @@ export default class BrowserTransport implements LinkTransport {
         const infoEl = this.createEl({class: 'info'})
         const infoTitle = this.createEl({class: 'title', tag: 'span', content: args.title})
         infoEl.appendChild(infoTitle)
+     
+        emptyElement(this.requestEl)
+        this.requestEl.appendChild(infoEl)
+        if (args.content) {
+            this.requestEl.appendChild(args.content)
+        }
         if (args.subtitle) {
             const infoSubtitle = this.createEl({
                 class: 'subtitle',
                 tag: 'span',
                 content: args.subtitle,
             })
-            infoEl.appendChild(infoSubtitle)
+            this.requestEl.appendChild(infoSubtitle)
         }
         
-        emptyElement(this.requestEl)
-        this.requestEl.appendChild(infoEl)
-        if (args.type === 'success') {
-            const checkEl = this.createEl({ class: 'success-check'});
-            this.requestEl.appendChild(checkEl);
-        } else if (args.type === 'error') {
-            const errorEl = this.createEl({ class: 'error-x'});
-            this.requestEl.appendChild(errorEl);
-        }
-        if (args.content) {
-            this.requestEl.appendChild(args.content)
-        }
         if (args.action) {
             const buttonEl = this.createEl({tag: 'a', class: 'button', text: args.action.text})
             buttonEl.addEventListener('click', (event) => {
@@ -411,23 +405,17 @@ export default class BrowserTransport implements LinkTransport {
         const timeout = session.metadata.timeout || 60 * 1000 * 2
         const deviceName = session.metadata.name
 
-        let subtitle: string
-        if (deviceName && deviceName.length > 0) {
-            subtitle = `Please open Anchor Wallet on “${deviceName}” to review and sign the transaction.`
-        } else {
-            subtitle = 'Please review and sign the transaction in the linked wallet.'
-        }
+        let subtitle = "Open Libre Wallet on your mobile phone to review and sign the transaction."
 
-        const title = this.createEl({tag: 'span', text: 'Sign'})
+        const title = this.createEl({tag: 'span', text: 'Pending...'})
+        const content = this.createEl({class: 'info'})
+        const countdown = this.createEl({class: 'countdown'})
         const expires = new Date(Date.now() + timeout)
         const updateCountdown = () => {
-            title.textContent = `Sign - ${countdownFormat(expires)}`
+            countdown.textContent = `${countdownFormat(expires)}`
         }
         this.countdownTimer = setInterval(updateCountdown, 200)
         updateCountdown()
-
-        const content = this.createEl({class: 'info'})
-        const manualHr = this.createEl({tag: 'hr'})
         const manualA = this.createEl({
             tag: 'a',
             text: 'Sign manually or with another device',
@@ -439,13 +427,21 @@ export default class BrowserTransport implements LinkTransport {
             error[SkipToManual] = true
             cancel(error)
         })
-        content.appendChild(manualHr)
-        content.appendChild(manualA)
+        content.appendChild(countdown)
+        
+        const confirmReqTitle = this.createEl({ tag: 'span', class: 'subtitle-title', text: 'Confirm Request'})
+        content.appendChild(confirmReqTitle);
 
         this.showDialog({
             title,
             subtitle,
             content,
+            action: {
+                text: 'Cancel',
+                callback: () => {
+                    this.closeModal();
+                }
+            }
         })
 
         if (session.metadata.sameDevice) {
@@ -686,10 +682,14 @@ export default class BrowserTransport implements LinkTransport {
         if (request === this.activeRequest) {
             this.clearTimers()
             if (this.requestStatus && !request.isIdentity()) {
+                const content = this.createEl({class: 'info'})
+                const successCheckSVG = this.createEl({ class: 'success-check' });
+                const successTitle = this.createEl({ tag: 'span', class: 'subtitle-title', text: 'Success' })
+                content.appendChild(successCheckSVG);
+                content.appendChild(successTitle)
                 this.showDialog({
-                    title: 'Success',
-                    subtitle: 'Transaction Signed.',
-                    content: 'Your transaction was successfully signed',
+                    title: 'Transaction Signed',
+                    subtitle: 'Your transaction was successfully signed.',
                     action: {
                         text: 'Continue',
                         callback: () => {
@@ -698,9 +698,9 @@ export default class BrowserTransport implements LinkTransport {
                     },
                     type: 'success',
                 })
-                // this.closeTimer = setTimeout(() => {
-                //     this.hide()
-                // }, 1.5 * 1000)
+                this.closeTimer = setTimeout(() => {
+                    this.hide()
+                }, 1.5 * 1000)
             } else {
                 this.hide()
             }
@@ -723,9 +723,16 @@ export default class BrowserTransport implements LinkTransport {
                 } else {
                     errorMessage = error.message || String(error)
                 }
+                const content = this.createEl({class: 'info'})
+                const errorXSVG = this.createEl({ class: 'error-x' });
+                const errorTitle = this.createEl({ tag: 'span', class: 'subtitle-title', text: 'Internal Error Occurred' })
+                content.appendChild(errorXSVG);
+                content.appendChild(errorTitle)
+
                 this.showDialog({
-                    title: 'Transaction Error',
+                    title: 'Error',
                     subtitle: errorMessage,
+                    content,
                     type: 'error',
                 })
             } else {
