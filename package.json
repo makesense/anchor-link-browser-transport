@@ -1,5 +1,5 @@
 {
-  "name": "libre-link-browser-transport",
+  "name": "@libre-chain/libre-link-browser-transport",
   "version": "3.2.5",
   "description": "Vanilla JS browser transport for Libre Link",
   "homepage": "https://github.com/makesense/libre-link-browser-transport",
