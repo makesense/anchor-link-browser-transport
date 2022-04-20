@@ -346,7 +346,7 @@ export default class BrowserTransport implements LinkTransport {
                 class: 'subtitle',
                 tag: 'span',
             })
-            infoSubtitle.innerHTML = 'Open <a href="https://librewallet.io" target="_blank">Libre Wallet</a> on your mobile phone and scan'
+            infoSubtitle.innerHTML = 'Open <a href="https://bitcoinlibre.io" target="_blank">Libre Wallet</a> on your mobile phone and scan'
             content.appendChild(infoSubtitle)
         }
         content.appendChild(linkEl)
