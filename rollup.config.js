@@ -62,7 +62,7 @@ export default [
     {
         input: 'src/index.ts',
         output: {
-            globals: {'libre-link': 'LibreLink'},
+            globals: {'@libre-chain/libre-link': 'LibreLink'},
             banner,
             name: 'LibreLinkBrowserTransport',
             file: pkg.unpkg,

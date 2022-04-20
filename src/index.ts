@@ -10,7 +10,7 @@ import {
     LinkTransport,
     SessionError,
     SigningRequest,
-} from 'libre-link'
+} from '@libre-chain/libre-link'
 
 import styleText from './styles'
 import generateQr from './qrcode'
@@ -621,7 +621,7 @@ export default class BrowserTransport implements LinkTransport {
                 await this.showFee(modified, String(fee))
             }
             return modified
-        } catch (error) {
+        } catch (error: any) {
             if (error[AbortPrepare]) {
                 this.hide()
                 throw error

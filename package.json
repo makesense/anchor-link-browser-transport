@@ -1,6 +1,6 @@
 {
   "name": "@libre-chain/libre-link-browser-transport",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "Vanilla JS browser transport for Libre Link",
   "homepage": "https://github.com/makesense/libre-link-browser-transport",
   "license": "BSD-3-Clause",
@@ -21,7 +21,7 @@
     "tslib": "^2.0.3"
   },
   "peerDependencies": {
-    "@libre-chain/libre-link": "^3.4.0"
+    "@libre-chain/libre-link": "^3.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -37,7 +37,7 @@
     "@types/ws": "^7.2.2",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
-    "anchor-link": "^3.3.0",
+    "@libre-chain/libre-link": "^3.5.0",
     "core-js": "^3.8.0",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^8.1.0",

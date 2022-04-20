@@ -1,5 +1,5 @@
-import type {LinkSession} from 'libre-link'
-import {PlaceholderName, Signature, SigningRequest} from 'libre-link'
+import type {LinkSession} from '@libre-chain/libre-link'
+import {PlaceholderName, Signature, SigningRequest} from '@libre-chain/libre-link'
 
 async function apiCall(url: string, body?: any) {
     return (

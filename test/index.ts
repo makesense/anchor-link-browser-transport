@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import Link, {AnyAction, ChainId, Checksum256} from 'libre-link'
+import Link, {AnyAction, ChainId, Checksum256} from '@libre-chain/libre-link'
 import BrowserTransport from './transport'
 
 const appId = 'trans.test'
