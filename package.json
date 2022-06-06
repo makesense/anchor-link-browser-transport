@@ -1,6 +1,6 @@
 {
   "name": "@libre-chain/libre-link-browser-transport",
-  "version": "3.3.1",
+  "version": "3.4.1",
   "description": "Vanilla JS browser transport for Libre Link",
   "homepage": "https://github.com/makesense/libre-link-browser-transport",
   "license": "BSD-3-Clause",
