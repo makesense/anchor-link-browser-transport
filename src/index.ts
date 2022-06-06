@@ -149,24 +149,25 @@ export default class BrowserTransport implements LinkTransport {
             document.head.appendChild(this.styleEl)
         }
         if (!this.fontElPreconnect) {
-            this.fontElPreconnect = document.createElement('link');
-            this.fontElPreconnect.rel= 'preconnect'
-            this.fontElPreconnect.href= 'https://fonts.googleapis.com'
-            document.head.appendChild(this.fontElPreconnect);
+            this.fontElPreconnect = document.createElement('link')
+            this.fontElPreconnect.rel = 'preconnect'
+            this.fontElPreconnect.href = 'https://fonts.googleapis.com'
+            document.head.appendChild(this.fontElPreconnect)
         }
         if (!this.fontElPreconnectXorigin) {
-            this.fontElPreconnectXorigin = document.createElement('link');
-            this.fontElPreconnectXorigin.rel= 'preconnect'
-            this.fontElPreconnectXorigin.href= 'https://fonts.googleapis.com'
+            this.fontElPreconnectXorigin = document.createElement('link')
+            this.fontElPreconnectXorigin.rel = 'preconnect'
+            this.fontElPreconnectXorigin.href = 'https://fonts.googleapis.com'
             this.fontElPreconnectXorigin.crossOrigin
-            document.head.appendChild(this.fontElPreconnectXorigin);
+            document.head.appendChild(this.fontElPreconnectXorigin)
         }
         if (!this.fontElStylesheet) {
-            this.fontElStylesheet = document.createElement('link');
-            this.fontElStylesheet.rel= 'preconnect'
-            this.fontElStylesheet.href= 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'
-            this.fontElStylesheet.rel = 'stylesheet';
-            document.head.appendChild(this.fontElStylesheet);
+            this.fontElStylesheet = document.createElement('link')
+            this.fontElStylesheet.rel = 'preconnect'
+            this.fontElStylesheet.href =
+                'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'
+            this.fontElStylesheet.rel = 'stylesheet'
+            document.head.appendChild(this.fontElStylesheet)
         }
 
         if (!this.containerEl) {
@@ -253,7 +254,7 @@ export default class BrowserTransport implements LinkTransport {
         const infoEl = this.createEl({class: 'info'})
         const infoTitle = this.createEl({class: 'title', tag: 'span', content: args.title})
         infoEl.appendChild(infoTitle)
-     
+
         emptyElement(this.requestEl)
         this.requestEl.appendChild(infoEl)
         if (args.content) {
@@ -267,7 +268,7 @@ export default class BrowserTransport implements LinkTransport {
             })
             this.requestEl.appendChild(infoSubtitle)
         }
-        
+
         if (args.action) {
             const buttonEl = this.createEl({tag: 'a', class: 'button', text: args.action.text})
             buttonEl.addEventListener('click', (event) => {
@@ -346,7 +347,8 @@ export default class BrowserTransport implements LinkTransport {
                 class: 'subtitle',
                 tag: 'span',
             })
-            infoSubtitle.innerHTML = 'Open <a href="https://bitcoinlibre.io" target="_blank">Libre Wallet</a> on your mobile phone and scan'
+            infoSubtitle.innerHTML =
+                'Open <a href="https://bitcoinlibre.io" target="_blank">Libre Wallet</a> on your mobile phone and scan'
             content.appendChild(infoSubtitle)
         }
         content.appendChild(linkEl)
@@ -405,7 +407,8 @@ export default class BrowserTransport implements LinkTransport {
         const timeout = session.metadata.timeout || 60 * 1000 * 2
         const deviceName = session.metadata.name
 
-        let subtitle = "Open Libre Wallet on your mobile phone to review and sign the transaction."
+        const subtitle =
+            'Open Libre Wallet on your mobile phone to review and sign the transaction.'
 
         const title = this.createEl({tag: 'span', text: 'Pending...'})
         const content = this.createEl({class: 'info'})
@@ -428,9 +431,13 @@ export default class BrowserTransport implements LinkTransport {
             cancel(error)
         })
         content.appendChild(countdown)
-        
-        const confirmReqTitle = this.createEl({ tag: 'span', class: 'subtitle-title', text: 'Confirm Request'})
-        content.appendChild(confirmReqTitle);
+
+        const confirmReqTitle = this.createEl({
+            tag: 'span',
+            class: 'subtitle-title',
+            text: 'Confirm Request',
+        })
+        content.appendChild(confirmReqTitle)
 
         this.showDialog({
             title,
@@ -439,9 +446,9 @@ export default class BrowserTransport implements LinkTransport {
             action: {
                 text: 'Cancel',
                 callback: () => {
-                    this.closeModal();
-                }
-            }
+                    this.closeModal()
+                },
+            },
         })
 
         if (session.metadata.sameDevice) {
@@ -683,9 +690,13 @@ export default class BrowserTransport implements LinkTransport {
             this.clearTimers()
             if (this.requestStatus && !request.isIdentity()) {
                 const content = this.createEl({class: 'info'})
-                const successCheckSVG = this.createEl({ class: 'success-check' });
-                const successTitle = this.createEl({ tag: 'span', class: 'subtitle-title', text: 'Success' })
-                content.appendChild(successCheckSVG);
+                const successCheckSVG = this.createEl({class: 'success-check'})
+                const successTitle = this.createEl({
+                    tag: 'span',
+                    class: 'subtitle-title',
+                    text: 'Success',
+                })
+                content.appendChild(successCheckSVG)
                 content.appendChild(successTitle)
                 this.showDialog({
                     title: 'Transaction Signed',
@@ -693,8 +704,8 @@ export default class BrowserTransport implements LinkTransport {
                     action: {
                         text: 'Continue',
                         callback: () => {
-                            this.hide();
-                        }
+                            this.hide()
+                        },
                     },
                     type: 'success',
                 })
@@ -724,9 +735,13 @@ export default class BrowserTransport implements LinkTransport {
                     errorMessage = error.message || String(error)
                 }
                 const content = this.createEl({class: 'info'})
-                const errorXSVG = this.createEl({ class: 'error-x' });
-                const errorTitle = this.createEl({ tag: 'span', class: 'subtitle-title', text: 'Internal Error Occurred' })
-                content.appendChild(errorXSVG);
+                const errorXSVG = this.createEl({class: 'error-x'})
+                const errorTitle = this.createEl({
+                    tag: 'span',
+                    class: 'subtitle-title',
+                    text: 'Internal Error Occurred',
+                })
+                content.appendChild(errorXSVG)
                 content.appendChild(errorTitle)
 
                 this.showDialog({
@@ -822,12 +837,12 @@ function generateReturnUrl() {
         return 'android-intent://com.brave.browser'
     }
 
-    if (isAndroid() && isAndroidWebView()) {
-        return 'android-intent://webview'
-    }
-
     if (isAndroid() && isChromeMobile()) {
         return 'android-intent://com.android.chrome'
+    }
+
+    if (isAndroid() && isAndroidWebView()) {
+        return 'android-intent://webview'
     }
 
     return window.location.href
@@ -870,7 +885,7 @@ function isAndroid() {
 }
 
 function isAndroidWebView() {
-    return /wv/.test(navigator.userAgent) || /Android.*AppleWebKit/.test(navigator.userAgent);
+    return /wv/.test(navigator.userAgent) || /Android.*AppleWebKit/.test(navigator.userAgent)
 }
 
 function copyToClipboard(text: string) {
