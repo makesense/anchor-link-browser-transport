@@ -54,6 +54,7 @@ export interface BrowserTransportOptions {
     additionalAppInfo?: {
         appName: string
         appIcon: string
+        appUrl: string
     }
 }
 
@@ -107,7 +108,7 @@ export default class BrowserTransport implements LinkTransport {
         this.storage = new Storage(options.storagePrefix || 'libre-link')
         this.supportedChains = options.supportedChains || defaultSupportedChains
         this.showingManual = false
-        this.additionalAppInfo = options.additionalAppInfo || {appIcon: '', appName: ''}
+        this.additionalAppInfo = options.additionalAppInfo || {appIcon: '', appName: '', appUrl: ''}
     }
 
     private classPrefix: string
@@ -397,6 +398,7 @@ export default class BrowserTransport implements LinkTransport {
     ) {
         if (session.metadata.sameDevice) {
             request.setInfoKey('return_path', generateReturnUrl())
+            request.setInfoKey('app_info', JSON.stringify(this.additionalAppInfo))
         }
 
         if (session.type === 'fallback') {
