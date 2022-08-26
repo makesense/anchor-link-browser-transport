@@ -12,10 +12,10 @@ import {
     SigningRequest,
 } from '@libre-chain/libre-link'
 
-import styleText from './styles'
 import generateQr from './qrcode'
+import styleText from './styles'
 
-import {fuel, compareVersion as fuelVersion} from './fuel'
+import {compareVersion as fuelVersion, fuel} from './fuel'
 
 const AbortPrepare = Symbol()
 const SkipFee = Symbol()
@@ -66,6 +66,7 @@ interface DialogArgs {
     subtitle: string | HTMLElement
     type?: string
     content?: HTMLElement
+    manualA?: HTMLElement
     action?: {text: string; callback: () => void}
     footnote?: string | HTMLElement
 }
@@ -269,6 +270,10 @@ export default class BrowserTransport implements LinkTransport {
             this.requestEl.appendChild(infoSubtitle)
         }
 
+        if (args.manualA) {
+            this.requestEl.appendChild(args.manualA)
+        }
+
         if (args.action) {
             const buttonEl = this.createEl({tag: 'a', class: 'button', text: args.action.text})
             buttonEl.addEventListener('click', (event) => {
@@ -408,7 +413,7 @@ export default class BrowserTransport implements LinkTransport {
         const deviceName = session.metadata.name
 
         const subtitle =
-            'Open Libre Wallet on your mobile phone to review and sign the transaction.'
+            'Open Libre Wallets on your mobile phone to review and sign the transaction.'
 
         const title = this.createEl({tag: 'span', text: 'Pending...'})
         const content = this.createEl({class: 'info'})
@@ -438,11 +443,13 @@ export default class BrowserTransport implements LinkTransport {
             text: 'Confirm Request',
         })
         content.appendChild(confirmReqTitle)
+        content.appendChild(manualA)
 
         this.showDialog({
             title,
             subtitle,
             content,
+            manualA,
             action: {
                 text: 'Cancel',
                 callback: () => {
