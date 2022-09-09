@@ -50,6 +50,12 @@ export interface BrowserTransportOptions {
      * Set to false to not use !important styles, defaults to true.
      */
     importantStyles?: boolean
+
+    additionalAppInfo?: {
+        appName: string
+        appIcon: string
+        appUrl: string
+    }
 }
 
 const defaultSupportedChains = {
@@ -103,6 +109,7 @@ export default class BrowserTransport implements LinkTransport {
         this.storage = new Storage(options.storagePrefix || 'libre-link')
         this.supportedChains = options.supportedChains || defaultSupportedChains
         this.showingManual = false
+        this.additionalAppInfo = options.additionalAppInfo || {appIcon: '', appName: '', appUrl: ''}
     }
 
     private classPrefix: string
@@ -124,6 +131,7 @@ export default class BrowserTransport implements LinkTransport {
     private closeTimer?: NodeJS.Timeout
     private prepareStatusEl?: HTMLElement
     private showingManual: boolean
+    private additionalAppInfo: {appName: string; appIcon: string}
 
     private closeModal() {
         this.hide()
@@ -299,6 +307,7 @@ export default class BrowserTransport implements LinkTransport {
         const returnUrl = generateReturnUrl()
         sameDeviceRequest.setInfoKey('same_device', true)
         sameDeviceRequest.setInfoKey('return_path', returnUrl)
+        sameDeviceRequest.setInfoKey('app_info', JSON.stringify(this.additionalAppInfo))
         const sameDeviceUri = sameDeviceRequest.encode(true, false)
         const crossDeviceUri = request.encode(true, false)
         const qrEl = this.createEl({class: 'qr'})
@@ -394,6 +403,7 @@ export default class BrowserTransport implements LinkTransport {
     ) {
         if (session.metadata.sameDevice) {
             request.setInfoKey('return_path', generateReturnUrl())
+            request.setInfoKey('app_info', JSON.stringify(this.additionalAppInfo))
         }
 
         if (session.type === 'fallback') {
