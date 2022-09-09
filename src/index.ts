@@ -462,7 +462,7 @@ export default class BrowserTransport implements LinkTransport {
             if (session.metadata.launchUrl) {
                 window.location.href = session.metadata.launchUrl
             } else if (isAppleHandheld()) {
-                window.location.href = 'anchor://link'
+                window.location.href = 'libre://link'
             }
         }
     }
